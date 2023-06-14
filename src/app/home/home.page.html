@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> App pelicula </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="medium">
+        <ion-icon name="videocam-outline"></ion-icon>
+        App Pelicula</ion-title
+      >
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-searchbar (ionInput)="onChangeInput($event)"></ion-searchbar>
+
+  <ng-container *ngIf="moviesFound?.length>=1">
+    <ion-text color="primary" class="ion-text-center">
+      <h1>Peliculas encontradas</h1>
+    </ion-text>
+    <ng-container  
+    >
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let cartelera of moviesFound" size="6" size-sm="3">
+          <ion-card class="ion-card" [routerLink]="['/detalle-movie/',cartelera.id]">
+            <ion-img
+              class="ion-img"
+              alt="Silhouette of mountains"
+              src="https://image.tmdb.org/t/p/original{{cartelera.poster_path}}"
+            />
+            <ion-icon name="heart-outline" class="ion-corazon icon"></ion-icon>
+  
+            <ion-card-header class="ion-text-center">
+              <ion-card-title >{{cartelera.title}}</ion-card-title>
+              <ion-card-subtitle> {{cartelera.release_date}} </ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+      </ng-container>
+  </ng-container>
+  <ng-container *ngIf="total_results===0">
+    <ion-text color="danger" class="ion-text-center">
+      <h1>No hay match con ninguna pelicula</h1>
+    </ion-text>
+  </ng-container>
+
+
+  <ion-card>
+    <swiper-container [slidesPerView]="1" [loop]="true">
+      <swiper-slide *ngFor="let p of posts"
+        ><ion-img
+          alt="Silhouette of mountains"
+          src="https://image.tmdb.org/t/p/original{{p.poster_path}}"
+        />
+      </swiper-slide>
+    </swiper-container>
+  </ion-card>
+  <div class="flex_chip">
+    <ng-container *ngIf="categorias$ |async as categorias">
+      <swiper-container [slidesPerView]="4" [loop]="true">
+        <swiper-slide *ngFor="let c of categorias.genres">
+          <ion-chip>
+            <ion-label> {{c?.name}} </ion-label>
+          </ion-chip>
+        </swiper-slide>
+      </swiper-container>
+    </ng-container>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let cartelera of postCartelera" size="6" size-sm="3">
+        <ion-card class="ion-card" [routerLink]="['/detalle-movie/',cartelera.id]">
+          <ion-img
+            class="ion-img"
+            alt="Silhouette of mountains"
+            src="https://image.tmdb.org/t/p/original{{cartelera.poster_path}}"
+          />
+          <ion-icon name="heart-outline" class="ion-corazon icon"></ion-icon>
+
+          <ion-card-header class="ion-text-center">
+            <ion-card-title >{{cartelera.title}}</ion-card-title>
+            <ion-card-subtitle> {{cartelera.release_date}} </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
