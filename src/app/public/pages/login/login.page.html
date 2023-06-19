@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+  <app-progress-bar />
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <ion-img src="../../../../assets//login-removebg-preview.png"></ion-img>
+
+  <form [formGroup]="formLogin" (submit)="login(formLogin.value)">
+    <ion-item>
+      <ion-input
+        type="email"
+        label="Email"
+        labelPlacement="floating"
+        placeholder="example@hotmail.com"
+        formControlName="email"
+      ></ion-input>
+    </ion-item>
+    <ng-container
+      *ngIf="formLogin.get('email')?.invalid && (formLogin.get('passemailword')?.dirty || formLogin.get('email')?.touched)"
+    >
+      <div *ngIf="formLogin.get('email')?.errors?.['required']">
+        <p class="error-message">El email es requerido.</p>
+      </div>
+      <div *ngIf="formLogin.get('email')?.errors?.['email']">
+        <p class="error-message">El email es invalido.</p>
+      </div>
+    </ng-container>
+
+    <ion-item class="ion-credenciales">
+      <ion-icon
+        [name]="isSeePassword?'eye-outline':'eye-off-outline'"
+        slot="end"
+        (click)="seePassword()"
+      ></ion-icon>
+      <ion-input
+        #password
+        [type]="isSeePassword?'text':'password'"
+        label="Password"
+        labelPlacement="floating"
+        placeholder="********"
+        formControlName="password"
+        password-toggle
+      >
+      </ion-input>
+    </ion-item>
+    <ng-container
+      *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)"
+    >
+      <div *ngIf="formLogin.get('password')?.errors?.['required']">
+        <p class="error-message">El password es requerido.</p>
+      </div>
+      <div *ngIf="formLogin.get('password')?.errors?.['minlength']">
+        <p class="error-message">El email debe tener minimo 5 caracteres.</p>
+      </div>
+    </ng-container>
+    <ion-button
+      [disabled]="!formLogin.valid"
+      color="secondary"
+      expand="block"
+      type="submit"
+      fill="clear"
+      shape="round"
+    >
+      Iniciar sesión
+    </ion-button>
+  </form>
+  <ion-text [routerLink]="['/register']"  color="primary" class="ion-text-end">
+    <p color="secondary"> Registrarse <ion-icon slot="end" name="arrow-forward-outline"></ion-icon></p>
+  </ion-text>
+</ion-content>

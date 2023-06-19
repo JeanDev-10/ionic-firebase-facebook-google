@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button
+      defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <app-progress-bar />
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-item>
+    <ion-img src="../../../../assets//506-5062168_miles-morales-spider-man-logo-hd-png-download-removebg-preview.png"></ion-img>
+  </ion-item>
+
+  <form [formGroup]="formRegister" (submit)="register(formRegister.value)">
+    <ion-item>
+      <ion-input
+        type="text"
+        label="UserName"
+        labelPlacement="floating"
+        placeholder="Draco"
+        formControlName="username"
+      ></ion-input>
+    </ion-item>
+    <ng-container
+      *ngIf="formRegister.get('username')?.invalid && (formRegister.get('username')?.dirty || formRegister.get('username')?.touched)"
+    >
+    <div *ngIf="formRegister.get('username')?.errors?.['required']">
+      <p class="error-message">El username es requerido.</p>
+    </div>
+  </ng-container>
+    <ion-item>
+      <ion-input
+        type="email"
+        label="Email"
+        labelPlacement="floating"
+        placeholder="example@hotmail.com"
+        formControlName="email"
+      ></ion-input>
+    </ion-item>
+    <ng-container
+      *ngIf="formRegister.get('email')?.invalid && (formRegister.get('passemailword')?.dirty || formRegister.get('email')?.touched)"
+    >
+      <div *ngIf="formRegister.get('email')?.errors?.['required']">
+        <p class="error-message">El email es requerido.</p>
+      </div>
+      <div *ngIf="formRegister.get('email')?.errors?.['email']">
+        <p class="error-message">El email es invalido.</p>
+      </div>
+    </ng-container>
+
+    <ion-item class="ion-credenciales">
+      <ion-icon
+        [name]="isSeePassword?'eye-outline':'eye-off-outline'"
+        slot="end"
+        (click)="seePassword()"
+      ></ion-icon>
+      <ion-input
+        #password
+        [type]="isSeePassword?'text':'password'"
+        label="Password"
+        labelPlacement="floating"
+        placeholder="********"
+        formControlName="password"
+        password-toggle
+      >
+      </ion-input>
+    </ion-item>
+    <ng-container
+      *ngIf="formRegister.get('password')?.invalid && (formRegister.get('password')?.dirty || formRegister.get('password')?.touched)"
+    >
+      <div *ngIf="formRegister.get('password')?.errors?.['required']">
+        <p class="error-message">El password es requerido.</p>
+      </div>
+      <div *ngIf="formRegister.get('password')?.errors?.['minlength']">
+        <p class="error-message">El password debe tener minimo 5 caracteres.</p>
+      </div>
+    </ng-container>
+    <ion-button
+      [disabled]="!formRegister.valid"
+      color="secondary"
+      expand="block"
+      type="submit"
+      fill="clear"
+      shape="round"
+    >
+      Registrarse
+    </ion-button>
+  </form>
+
+</ion-content>

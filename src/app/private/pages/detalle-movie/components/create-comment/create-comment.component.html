@@ -1,0 +1,43 @@
+<ion-item>
+  <ion-avatar slot="start">
+    <ion-img
+      src="https://i.pinimg.com/originals/b3/27/e3/b327e3fee5fbfe1612af7c8629a11aaf.jpg"
+    />
+  </ion-avatar>
+  <form
+    [formGroup]="comentarioForm"
+    (submit)="sendComment(comentarioForm.value)"
+  >
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="8"
+          ><ion-input
+            placeholder="Escribe tu comentario"
+            formControlName="comentario"
+          ></ion-input>
+          <ng-container
+            *ngIf="
+              comentarioForm.get('comentario')?.invalid &&
+              (comentarioForm.get('comentario')?.dirty ||
+                comentarioForm.get('comentario')?.touched)
+            "
+          >
+            <div *ngIf="comentarioForm.get('comentario')?.errors?.['required']">
+              <p class="error-message">El comentario es requerido.</p>
+            </div>
+          </ng-container></ion-col
+        >
+        <ion-col size="auto">
+          <ion-button
+            [disabled]="!comentarioForm.valid"
+            type="submit"
+            expand="block"
+            fill="clear"
+            shape="round"
+          >
+            <ion-icon slot="start" name="send"></ion-icon> </ion-button
+        ></ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-item>

@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <app-header-user slot="end" />
+  </ion-toolbar>
+  <app-progress-bar />
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Peliculas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <swiper-container [slidesPerView]="1" [loop]="true">
+      <swiper-slide *ngFor="let p of posts"
+        ><ion-img
+          alt="Silhouette of mountains"
+          src="https://image.tmdb.org/t/p/original{{p.poster_path}}"
+        />
+      </swiper-slide>
+    </swiper-container>
+  </ion-card>
+  <div class="flex_chip">
+    <ng-container *ngIf="categorias$ |async as categorias">
+      <swiper-container [slidesPerView]="4" [loop]="true">
+        <swiper-slide *ngFor="let c of categorias.genres">
+          <ion-chip>
+            <ion-label> {{c?.name}} </ion-label>
+          </ion-chip>
+        </swiper-slide>
+      </swiper-container>
+    </ng-container>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let cartelera of postCartelera" size="6" size-sm="3">
+        <app-card-movie [movie]="cartelera" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

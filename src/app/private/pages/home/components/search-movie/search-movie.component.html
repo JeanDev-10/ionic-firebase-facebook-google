@@ -1,0 +1,10 @@
+<ion-searchbar (ionInput)="onChangeInput($event)"></ion-searchbar>
+
+<ng-container *ngIf="moviesFound?.length >= 1">
+  <app-list-movie [movie]="cartelera" *ngFor="let cartelera of moviesFound" />
+</ng-container>
+<ng-container *ngIf="total_results === 0">
+  <ion-text color="danger" class="ion-text-center">
+    <h1>No hay match con ninguna pelicula</h1>
+  </ion-text>
+</ng-container>

@@ -1,0 +1,9 @@
+<ion-list [routerLink]="['/private/detalle-movie/',movie.id]">
+  <ion-item class="ion-margin-horizontal">
+    <ion-avatar slot="start" >
+      <ion-img src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" ></ion-img>
+    </ion-avatar>
+    <ion-label> {{movie.title}} </ion-label>
+  </ion-item>
+
+</ion-list>

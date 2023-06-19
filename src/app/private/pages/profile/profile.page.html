@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+ <!--  <ion-card>
+    <ion-img alt="Silhouette of mountains" src="https://i.pinimg.com/originals/b3/27/e3/b327e3fee5fbfe1612af7c8629a11aaf.jpg"  />
+    <ion-card-header>
+      <ion-card-title>Jean1011</ion-card-title>
+      <ion-card-subtitle>Jean@hotmail.com</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Registrado en la aplicación de películas
+    </ion-card-content>
+  </ion-card> -->
+  <ion-card *ngIf="user">
+    <ion-card-header>
+      <ion-avatar>
+        <img src="https://i.pinimg.com/originals/b3/27/e3/b327e3fee5fbfe1612af7c8629a11aaf.jpg" alt="Foto de perfil">
+      </ion-avatar>
+      <ion-card-title> {{user.user |titlecase}} </ion-card-title>
+      <ion-card-subtitle> {{user.email}} </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Otras secciones de información del perfil -->
+      <ion-list>
+        <ion-item>
+          <ion-icon name="mail"></ion-icon>
+          <ion-label>Correo electrónico</ion-label>
+          <ion-note>{{user.email|lowercase}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="logout()" expand="block" fill="clear" shape="round" color="danger">
+           Logout
+           <ion-icon name="log-out-outline" slot="start"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <!-- Otras propiedades del usuario -->
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

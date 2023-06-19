@@ -1,0 +1,9 @@
+<ion-item [routerLink]="['/private/profile']" *ngIf="user">
+  <ion-avatar slot="start">
+    <ion-img
+      alt="Silhouette of mountains"
+      src="https://i.pinimg.com/originals/b3/27/e3/b327e3fee5fbfe1612af7c8629a11aaf.jpg"
+    />
+  </ion-avatar>
+  <ion-label> {{user.user | titlecase}} </ion-label>
+</ion-item>

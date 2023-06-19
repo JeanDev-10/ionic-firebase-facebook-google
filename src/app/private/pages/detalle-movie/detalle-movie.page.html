@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button defaultHref="/private/home" slot="start"></ion-back-button>
+    <app-header-user slot="end" />
+  </ion-toolbar>
+  <app-progress-bar />
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Detalle Movie</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ng-container *ngIf="movie$|async as movie">
+    <ion-card>
+      <ion-card-header>
+        <ion-img
+            class="ion-img"
+            alt="Silhouette of mountains"
+            src="https://image.tmdb.org/t/p/original{{movie.poster_path}}"
+          />
+        <ion-card-subtitle> {{movie.status}} </ion-card-subtitle>
+        <ion-card-title> {{movie.title}} </ion-card-title>
+      </ion-card-header>
+      <ion-card-content> {{movie.overview}}
+      </ion-card-content>
+    </ion-card>
+    <app-list-comentario [post_id]="movie.id" />
+    <app-create-comment [post_id]="movie.id"  />
+  </ng-container>
+</ion-content>

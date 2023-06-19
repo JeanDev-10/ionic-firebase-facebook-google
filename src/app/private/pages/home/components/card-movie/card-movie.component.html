@@ -1,0 +1,15 @@
+<ion-card class="ion-card" [routerLink]="['/private/detalle-movie/', movie.id]">
+  <ion-img
+    class="ion-img"
+    alt="Silhouette of mountains"
+    src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}"
+    height="200"
+  />
+
+  <ion-card-header class="ion-text-center">
+    <ion-card-title>{{ movie.title }}</ion-card-title>
+    <ion-card-subtitle> {{ movie.release_date }} </ion-card-subtitle>
+
+  </ion-card-header>
+
+</ion-card>
