@@ -8,13 +8,22 @@ import {
   loginI,
 } from '../interfaces/auth.interfaces';
 import { Observable } from 'rxjs';
+import {
+  Auth,
+  authState,
+  createUserWithEmailAndPassword,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+  signOut,
+} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
   private readonly API_URL = config.apiUrl;
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private afAuth: Auth) {}
+  stateSession$ = authState(this.afAuth);
 
   login(body: loginI): Observable<LoginResponseI> {
     return this.http.post<LoginResponseI>(`${this.API_URL}login`, body);
@@ -22,7 +31,7 @@ export class AuthServiceService {
   register(body: RegisterI): Observable<RegisterResponseI> {
     return this.http.post<RegisterResponseI>(`${this.API_URL}user`, body);
   }
-  setUser(id:any) {
+  setUser(id: any) {
     localStorage.setItem('user_id', id);
   }
   getUser() {
@@ -48,5 +57,20 @@ export class AuthServiceService {
     const token = this.getToken();
     if (!token) return false;
     return true;
+  }
+
+  async logoutFirebase() {
+    return await signOut(this.afAuth);
+  }
+  async registerFirebase(email: any, password: any) {
+    const user = await createUserWithEmailAndPassword(
+      this.afAuth,
+      email,
+      password
+    );
+    return await signInWithEmailAndPassword(this.afAuth, email, password);
+  }
+  async loginFirebase(email: any, password: any) {
+    return await signInWithEmailAndPassword(this.afAuth, email, password);
   }
 }

@@ -29,13 +29,22 @@ export class RegisterPage implements OnInit {
         password:form.password,
         user:form.username
       }
-      this.authService.register(body).subscribe((data)=>{
+      this.authService.registerFirebase(body.email,body.password)
+      .then((user)=>{
+        this.toastService.createToastSucess('Cuenta creada correctamente');
+        this.route.navigate(['/private/home'])
+      }).catch((err)=>{
+        console.log(err)
+      });
+
+
+      /* this.authService.register(body).subscribe((data)=>{
         this.authService.setToken(data.token)
         this.authService.setUser(data.users.id)
         this.toastService.createToastSucess('Registro exitoso');
         this.route.navigate(['/private/home'])
         this.toastService.createToastSucess('Inicio de sesión exitoso');
-      })
+      }) */
     }else{
       this.toastService.createToastError('Formulario invalido, llene todos los datos');
 

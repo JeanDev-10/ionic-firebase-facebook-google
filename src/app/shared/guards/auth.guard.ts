@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     }
   }
   isLogin():boolean{
-    if(this.authService.isLoggedIn()) {
+    if(true) {
       return true
     }
     console.log("redireccionar")

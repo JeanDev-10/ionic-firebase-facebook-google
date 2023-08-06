@@ -30,12 +30,19 @@ export class LoginPage implements OnInit {
         email:form.email,
         password:form.password
       }
-      this.authService.login(form).subscribe((data)=>{
+      /* this.authService.login(form).subscribe((data)=>{
         this.authService.setToken(data.token)
         this.authService.setUser(data.dataUser.id)
         this.router.navigate(['/private/home']);
         this.toastService.createToastSucess('Inicio de sesión exitoso');
-      })
+      }) */
+      this.authService.loginFirebase(body.email,body.password)
+      .then((user)=>{
+        this.toastService.createToastSucess('Login correctamente');
+        this.router.navigate(['/private/home'])
+      }).catch((err)=>{
+        console.log(err)
+      });
     }else{
       this.toastService.createToastError('Formulario invalido, llene todos los datos');
     }
