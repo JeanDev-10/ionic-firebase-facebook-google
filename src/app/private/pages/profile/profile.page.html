@@ -19,7 +19,7 @@
   <ion-card *ngIf="user$|async as user">
     <ion-card-header>
       <ion-avatar>
-        <img src="https://i.pinimg.com/originals/b3/27/e3/b327e3fee5fbfe1612af7c8629a11aaf.jpg" alt="Foto de perfil">
+        <img [src]="user.auth.currentUser.photoURL" alt="Foto de perfil">
       </ion-avatar>
     </ion-card-header>
     <ion-card-content>
@@ -27,7 +27,7 @@
       <ion-list>
         <ion-item>
           <ion-icon name="person-outline"></ion-icon>
-          <ion-note *ngIf="user.auth.currentUser">{{user.auth.currentUser.displayName|lowercase}}</ion-note>
+          <ion-note *ngIf="user.auth.currentUser">{{user.auth.currentUser.displayName|titlecase}}</ion-note>
 
         </ion-item>
         <ion-item>

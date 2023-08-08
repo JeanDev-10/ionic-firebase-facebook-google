@@ -16,7 +16,11 @@ const routes: Routes = [
     data:{authGuardPipe:redirectUnauthorizedToLogin},
     loadChildren:()=>import('./private/private.module').then(m=>m.PrivateModule)
 
+  },  {
+    path: 'chat',
+    loadChildren: () => import('./private/pages/chat/chat.module').then( m => m.ChatPageModule)
   },
+
 
 
 
