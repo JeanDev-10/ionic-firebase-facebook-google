@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, authState, signInWithPopup, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from '@angular/fire/auth';
 import { config } from 'config/config';
 import {
   LoginResponseI,
@@ -8,23 +9,18 @@ import {
   loginI,
 } from '../interfaces/auth.interfaces';
 import { Observable } from 'rxjs';
-import {
-  Auth,
-  authState,
-  createUserWithEmailAndPassword,
-  signInWithCredential,
-  signInWithEmailAndPassword,
-  signOut,
-} from '@angular/fire/auth';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
   private readonly API_URL = config.apiUrl;
-  constructor(private readonly http: HttpClient, private afAuth: Auth) {}
+  constructor(
+    private readonly http: HttpClient,
+    private afAuth: Auth,
+  ) {}
   stateSession$ = authState(this.afAuth);
-
   login(body: loginI): Observable<LoginResponseI> {
     return this.http.post<LoginResponseI>(`${this.API_URL}login`, body);
   }
@@ -72,5 +68,11 @@ export class AuthServiceService {
   }
   async loginFirebase(email: any, password: any) {
     return await signInWithEmailAndPassword(this.afAuth, email, password);
+  }
+  async loginWithFacebook(){
+    return await signInWithPopup(this.afAuth, new FacebookAuthProvider());
+  }
+  async loginWithGoogle(){
+    return await signInWithPopup(this.afAuth, new GoogleAuthProvider());
   }
 }
